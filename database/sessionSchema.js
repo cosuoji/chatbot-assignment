@@ -16,7 +16,7 @@ const sessionSchema = mongoose.Schema({
        type:Array,
        default:[],
        trim: true 
-    }
+    },
 }, {
     timestamps: true
 })

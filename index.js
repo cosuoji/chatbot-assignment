@@ -168,15 +168,29 @@ io.on("connection", (socket) =>{
                 let orderHistoryArray = answer[0].previous_Orders
                 let dateHistory = answer[0].date_order_was_placed
 
+                socket.emit("chat message", "Order History")
+
                 for(let i = 0; i < orderHistoryArray.length; i++){
-                    console.log(orderHistoryArray[i], dateHistory[i].getDay())
+                let dateAnswer = `${dateHistory[i].getDate()} - ${dateHistory[i].getMonth() + 1} - ${dateHistory[i].getFullYear()}`
+                 let orderObject = {}
+                    orderHistoryArray[i].forEach(food =>{
+                    if(orderObject[food]){
+                        orderObject[food] += 1;
+                    }
+                    else{
+                        orderObject[food] = 1
+                    }
+                })
+                for(let key in orderObject){
+                    socket.emit("chat message", `${orderObject[key]} x ${key}, ${dateAnswer}`)
+                }
+
                 }
               }
+
+
              
-              
-            //   for(let i = 0; i < answer.previous_Orders.length; i++){
-            //     console.log(answer.previous_Orders[i])
-            //   }
+
             }  
 
             result()
@@ -201,3 +215,10 @@ mongoose.connect(MONGODB_URI)
             console.log("to do app is running on PORT", PORT)
         })
     })
+
+
+
+
+ 
+
+            
