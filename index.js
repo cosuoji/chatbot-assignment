@@ -6,13 +6,15 @@ import { Server } from "socket.io";
 import session from "express-session";
 import mongoose from "mongoose";
 import sessionDatabase from "./database/sessionSchema.js";
+import dotenv from "dotenv"
 
 
+dotenv.config()
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server)
-const MONGODB_URI = "mongodb+srv://test_user:password123456@bookstore.gvhx48w.mongodb.net/sessionData?retryWrites=true&w=majority&appName=bookstore"
+const MONGODB_URI = process.env.MONGODB_URI
 
 
 const PORT = 9000
@@ -54,13 +56,6 @@ io.on("connection", (socket) =>{
 
     const sessionId = socket.request.session.id
     console.log(sessionId)
-    socket.emit("chat message", "Welcome to the Restaurant Big Bakk")
-    socket.emit("chat message", "Select 1 to Place an Order")
-    socket.emit("chat message", "Select 99 to Checkout Order and Pay")
-    socket.emit("chat message", "Select 98 to See Order History")
-    socket.emit("chat message", "Select 97 to See Current Order")
-    socket.emit("chat message", "Select 0 to Cancel Order")
-    socket.emit("chat message", "Type clear to start over")
 
     let orderArray = []
 

@@ -57,10 +57,27 @@
         #messages>li:nth-child(odd) {
             background: #efefef;
         }
+
+        .sticky { 
+            position: sticky; 
+            top: 20px; 
+            background-color: rgb(218, 226, 217); 
+            color: rgb(0, 0, 0); 
+            padding: 10px; 
+        } 
     </style>
 </head>
 
 <body>
+    <div class="sticky">
+        <p>Welcome to the Restaurant Big Bakk</p>
+        <p>Select 1 to Place an Order</p>
+        <p>Select 99 to Checkout Order and Pay</p>
+        <p>Select 98 to See Order History</p>
+        <p>Select 97 to See Current Order</p>
+        <p>Select 0 to Cancel Order</p>
+        <p>Type clear to start over</p>
+    </div>
     <ul id="messages"></ul>
     <form id="form" action="">
         <input id="input" autocomplete="off" /><button>Send</button>
@@ -75,6 +92,7 @@
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
+            
             if (input.value) {
                 socket.emit('chat message', input.value);
                 if(input.value === "clear"){
